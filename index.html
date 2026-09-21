@@ -713,6 +713,22 @@
             line-height: 1.3;
         }
         
+        .needs-status {
+            align-self: center;
+            margin-top: 8px;
+            padding: 2px 9px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.95);
+            color: #1a5276;
+            font-size: 0.72em;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .needs-status.complete {
+            color: #1e8449;
+        }
+
         .needs-arrow {
             color: #4a6fa5;
             font-size: 2em;
@@ -1381,6 +1397,7 @@
                     <div class="needs-box county">
                         <div class="needs-box-title">Private Taxilane</div>
                         <div class="needs-box-desc">Enables Private Hangar Development</div>
+                        <div class="needs-status">Partially Funded • In Progress</div>
                     </div>
                     <div class="needs-arrow">➔</div>
                     <div class="needs-box grant">
@@ -1401,11 +1418,13 @@
                     <div class="needs-box pjc">
                         <div class="needs-box-title">Airport Terminal Improvements</div>
                         <div class="needs-box-desc">Functional and cosmetic updates</div>
+                        <div class="needs-status">Work Underway</div>
                     </div>
                     <div class="needs-arrow">➔</div>
                     <div class="needs-box pjc">
                         <div class="needs-box-title">Hangar Share Program</div>
                         <div class="needs-box-desc">Temp solution for overnight hangaring</div>
+                        <div class="needs-status complete">✓ Complete</div>
                     </div>
                     <div class="needs-arrow">➔</div>
                     <div class="needs-box joint">
@@ -1421,6 +1440,7 @@
                     <div class="needs-box pjc">
                         <div class="needs-box-title">Rental Cars</div>
                         <div class="needs-box-desc">Enables more overnight stays</div>
+                        <div class="needs-status complete">✓ Complete</div>
                     </div>
                     <div class="needs-arrow">➔</div>
                     <div class="needs-box pjc">
@@ -1832,8 +1852,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>T-Hangar</td>
-                        <td>$125/mo</td>
+                        <td>T-Hangar<br><small>Current rate begins 2027</small></td>
+                        <td>$175/mo legacy tenants<br>$250/mo new tenants</td>
                         <td>$250/mo</td>
                         <td>$325/mo</td>
                     </tr>
@@ -1856,31 +1876,18 @@
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Hangar Size Category</th>
-                        <th>Lot Size</th>
-                        <th>Rate per Square Foot (Annual)</th>
+                        <th>Ground Lease Fee</th>
+                        <th>Rate</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Small</strong></td>
-                        <td>3,599 sf or below</td>
-                        <td>$0.25/sf per year</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Medium</strong></td>
-                        <td>3,600 sf – 6,399 sf</td>
+                        <td><strong>Ground Lease Rate</strong> (all lot sizes)</td>
                         <td>$0.20/sf per year</td>
                     </tr>
                     <tr>
-                        <td><strong>Large</strong></td>
-                        <td>6,400 sf – 12,000 sf</td>
-                        <td>$0.15/sf per year</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Jumbo</strong></td>
-                        <td>Greater than 12,000 sf</td>
-                        <td>$0.10/sf per year</td>
+                        <td><strong>Initial Application Fee</strong></td>
+                        <td>$3,500 (one time)</td>
                     </tr>
                 </tbody>
             </table>
@@ -1888,42 +1895,42 @@
             <div class="highlight-box" style="margin-top: 20px;">
                 <strong>Ground Lease Notes:</strong>
                 <ul style="margin-top: 10px; margin-bottom: 0;">
-                    <li><strong>Escalation:</strong> Rates increase 3% annually, applied in 5-year blocks. Lessees pay a fixed rate for each 5-year period.</li>
+                    <li><strong>Escalation:</strong> Rates increase $0.03 per square foot every 5 years. Lessees pay a fixed rate for each 5-year period ($0.20, $0.23, $0.26, $0.29, and $0.32/sf over a 25-year term).</li>
                     <li><strong>Lot Size Requirements:</strong> Lease rates apply to the entire lot size. Minimum setbacks: 15 feet from taxilane, 10 feet from side and rear lot lines. Septic systems must be at least 10 feet from all lot boundaries.</li>
                     <li><strong>Lease Terms:</strong> Standard 25-year lease with two 10-year renewal options (45 years maximum).</li>
                 </ul>
             </div>
             
             <h4 style="margin-top: 30px; color: #1a5276;">Example Ground Lease Calculations</h4>
-            <p style="margin-bottom: 15px;">The following examples illustrate annual lease payments over a 25-year lease term with 3% escalation applied in 5-year blocks:</p>
+            <p style="margin-bottom: 15px;">The following examples illustrate annual lease payments over a 25-year lease term at $0.20/sf, increasing $0.03/sf every 5 years:</p>
             
             <table class="comparison-table">
                 <thead>
                     <tr>
                         <th>Example Hangar</th>
-                        <th>Years 1-5</th>
-                        <th>Years 6-10</th>
-                        <th>Years 11-15</th>
-                        <th>Years 16-20</th>
-                        <th>Years 21-25</th>
+                        <th>Years 1-5<br><small>$0.20/sf</small></th>
+                        <th>Years 6-10<br><small>$0.23/sf</small></th>
+                        <th>Years 11-15<br><small>$0.26/sf</small></th>
+                        <th>Years 16-20<br><small>$0.29/sf</small></th>
+                        <th>Years 21-25<br><small>$0.32/sf</small></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>60' × 60' Hangar with Septic</strong><br><small>7,350 sf lot (Large @ $0.15/sf)</small></td>
-                        <td>$1,103/yr<br><small>$92/mo</small></td>
-                        <td>$1,278/yr<br><small>$107/mo</small></td>
-                        <td>$1,481/yr<br><small>$123/mo</small></td>
-                        <td>$1,717/yr<br><small>$143/mo</small></td>
-                        <td>$1,990/yr<br><small>$166/mo</small></td>
+                        <td><strong>60' × 60' Hangar with Septic</strong><br><small>7,350 sf lot</small></td>
+                        <td>$1,470/yr<br><small>$123/mo</small></td>
+                        <td>$1,691/yr<br><small>$141/mo</small></td>
+                        <td>$1,911/yr<br><small>$159/mo</small></td>
+                        <td>$2,132/yr<br><small>$178/mo</small></td>
+                        <td>$2,352/yr<br><small>$196/mo</small></td>
                     </tr>
                     <tr>
-                        <td><strong>90' × 120' Hangar with Septic</strong><br><small>18,900 sf lot (Jumbo @ $0.10/sf)</small></td>
-                        <td>$1,890/yr<br><small>$158/mo</small></td>
-                        <td>$2,191/yr<br><small>$183/mo</small></td>
-                        <td>$2,539/yr<br><small>$212/mo</small></td>
-                        <td>$2,943/yr<br><small>$245/mo</small></td>
-                        <td>$3,411/yr<br><small>$284/mo</small></td>
+                        <td><strong>90' × 120' Hangar with Septic</strong><br><small>18,900 sf lot</small></td>
+                        <td>$3,780/yr<br><small>$315/mo</small></td>
+                        <td>$4,347/yr<br><small>$362/mo</small></td>
+                        <td>$4,914/yr<br><small>$410/mo</small></td>
+                        <td>$5,481/yr<br><small>$457/mo</small></td>
+                        <td>$6,048/yr<br><small>$504/mo</small></td>
                     </tr>
                 </tbody>
             </table>
