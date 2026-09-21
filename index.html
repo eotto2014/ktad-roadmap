@@ -950,6 +950,85 @@
             }
         }
         
+        /* CIP worksheet table */
+        .cip-sheet {
+            margin: 20px 0;
+        }
+
+        .cip-sheet-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 30px;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+        }
+
+        .cip-sheet-meta span {
+            display: block;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .cip-table-scroll {
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .cip-table {
+            width: 100%;
+            min-width: 1100px;
+            border-collapse: collapse;
+        }
+
+        .cip-table th {
+            background: #1a5276;
+            color: white;
+            padding: 8px 6px;
+            font-weight: 600;
+            text-align: center;
+            vertical-align: bottom;
+        }
+
+        .cip-table td {
+            padding: 7px 6px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .cip-table tr.cip-year-start td {
+            border-top: 2px solid #1a5276;
+        }
+
+        .cip-table tr.cip-muted td {
+            color: #888;
+        }
+
+        .cip-table .cip-year {
+            font-weight: 700;
+            color: #1a5276;
+            white-space: nowrap;
+        }
+
+        .cip-table .cip-project {
+            font-weight: 600;
+            min-width: 200px;
+        }
+
+        .cip-table .cip-num {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .cip-table .cip-comment {
+            min-width: 240px;
+            color: #555;
+            font-size: 0.95em;
+        }
+
         /* CIP Image - Larger zoom */
         .cip-image {
             min-width: 120%;
@@ -1982,9 +2061,45 @@
             <h2>Capital Improvement Plan (CIP) FY 2026-2035</h2>
             <p>The CIP represents the programmed infrastructure investments for Perry Stokes Airport, coordinated between Las Animas County and the FAA. This 10-year plan identifies funded projects, funding sources, and long-term priorities necessary to support airport growth.</p>
             
-            <div style="margin: 20px 0; text-align: center; overflow-x: auto;">
-                <img src="images/cip.png" alt="Perry Stokes Airport Capital Improvement Plan FY 2026-2035" class="expandable-img" onclick="openModal(this.src)" style="min-width: 1170px; max-width: 156%; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                <p class="click-hint">Click image to enlarge</p>
+            <div class="cip-sheet">
+                <div class="cip-sheet-meta">
+                    <div><span>Airport</span>Perry Stokes Airport (TAD)</div>
+                    <div><span>Sponsor</span>Las Animas County</div>
+                    <div><span>CIP Acceptance Date</span>12/31/2025</div>
+                    <div><span>ADO Contact</span>Joseph Sherrell</div>
+                </div>
+                <div class="cip-table-scroll">
+                <table class="cip-table" style="font-size: 0.8em;">
+                    <thead>
+                        <tr><th>Year</th><th>Project</th><th>FAA Discretionary</th><th>FAA State Apportionment</th><th>FAA Entitlements</th><th>Colorado Discretionary</th><th>Local</th><th>Passenger Facility Charge</th><th>Total Funding</th><th>Project Cost Estimate</th><th>Comments</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="cip-year-start cip-muted"><td class="cip-year">2026</td><td class="cip-project">Carryover to 2030</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-comment"></td></tr>
+                        <tr class="cip-year-start cip-muted"><td class="cip-year">2027</td><td class="cip-project">Transfer to Pagosa Springs</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-comment"></td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">BIL Allocation - Transient Apron/Helicopter Parking Pad Phase 1 Construction</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$439,000</td><td class="cip-num">$11,552</td><td class="cip-num">$11,553</td><td class="cip-num">—</td><td class="cip-num">$462,105</td><td class="cip-num">$1,292,100</td><td class="cip-comment">*PRIORITY 1B* Using all available ENT (2028/2029/2030 and requesting CDOT overmatch of $500,000</td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">Overmatch Transient Apron/Helicopter Parking Pad Phase 1 Construction</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$500,000</td><td class="cip-num">$55,556</td><td class="cip-num">—</td><td class="cip-num">$555,556</td><td class="cip-num">$1,292,100</td><td class="cip-comment">*PRIORITY 1B* Using all available ENT (2028/2029/2030 and requesting CDOT overmatch of $500,000</td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">Transient Apron/Helicopter Parking Pad Phase 1 Construction</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$102,224</td><td class="cip-num">$2,690</td><td class="cip-num">$2,691</td><td class="cip-num">—</td><td class="cip-num">$107,605</td><td class="cip-num">$1,292,100</td><td class="cip-comment">*PRIORITY 1B* Using all available ENT (2028/2029/2030 and requesting CDOT overmatch of $500,000</td></tr>
+                        <tr class="cip-year-start cip-muted"><td class="cip-year">2028</td><td class="cip-project">Transfer to Salida</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-comment"></td></tr>
+                        <tr class="cip-year-start cip-muted"><td class="cip-year">2029</td><td class="cip-project">Transfer to Sterling</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-comment"></td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">Taxi Lane Extension</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$714,700</td><td class="cip-comment">*PRIORITY 2* Locally funded to drive Hangar Development (if Apron/Helicopter Parking is funded by other sources, this becomes Priority 1.</td></tr>
+                        <tr class="cip-year-start"><td class="cip-year">2030</td><td class="cip-project">Transient Apron/Helicopter Parking Pad Phase 2 Construction</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$600,000</td><td class="cip-num">$33,333</td><td class="cip-num">$33,334</td><td class="cip-num">—</td><td class="cip-num">$666,667</td><td class="cip-num">$1,292,100</td><td class="cip-comment">Transfers from Pagosa Springs, Salida, and Sterling.</td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">60x60 Hangar</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$506,500</td><td class="cip-num">—</td><td class="cip-num">$506,500</td><td class="cip-num">$506,500</td><td class="cip-comment">FBO/County/Other Funding</td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">Overmatch Transient Apron/Helicopter Parking Pad Phase 2 Construction</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$650,000</td><td class="cip-num">$72,222</td><td class="cip-num">—</td><td class="cip-num">$722,222</td><td class="cip-num">$1,292,100</td><td class="cip-comment">*PRIORITY 1B* Using all available ENT (2028/2029/2030 and requesting CDOT overmatch of $650,000</td></tr>
+                        <tr class="cip-year-start"><td class="cip-year">2031</td><td class="cip-project">Pavement Maintenance</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$48,930</td><td class="cip-num">—</td><td class="cip-num">$48,930</td><td class="cip-num">$489,300</td><td class="cip-comment">CDOT /Local Funding Request CDOT Funding $440,370.00</td></tr>
+                        <tr class="cip-muted"><td class="cip-year"></td><td class="cip-project">Transfer to Steamboat Springs</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-comment">Carryover 2031 to 2034</td></tr>
+                        <tr class="cip-year-start cip-muted"><td class="cip-year">2032</td><td class="cip-project">Transfer to Sterling</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-comment">Carryover 2032 ENT to 2034</td></tr>
+                        <tr class="cip-year-start cip-muted"><td class="cip-year">2033</td><td class="cip-project">Transfer to Buena Vista</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-comment">Carryover 2033 ENT to 2034</td></tr>
+                        <tr class="cip-year-start"><td class="cip-year">2034</td><td class="cip-project">Runway 3 Taxiway Turnaround Ph 1</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$600,000</td><td class="cip-num">—</td><td class="cip-num">$99,999</td><td class="cip-num">—</td><td class="cip-num">$699,999</td><td class="cip-num">$2,159,900</td><td class="cip-comment">*PRIORITY 3* Using all available ENT (2031/ 2032/ 2033/ 2034 transfers from SBS, STK and AEJ) and requesting CDOT overmatch of $650,000 (Project could be phased, 1-Design/Earthwork; 2-Pavement Section. Potentially target two transfer programs)</td></tr>
+                        <tr class="cip-year-start"><td class="cip-year">2035</td><td class="cip-project">Runway 3 Taxiway Turnaround Ph 2</td><td class="cip-num">—</td><td class="cip-num">$600,000</td><td class="cip-num">$600,000</td><td class="cip-num">$666,666</td><td class="cip-num">$666,667</td><td class="cip-num">—</td><td class="cip-num">$2,533,333</td><td class="cip-num">$2,159,900</td><td class="cip-comment">*PRIORITY 3* Using all available ENT (2035/36/37/38 transfers from? ? and ?) and requesting CDOT overmatch of $650,000 (Project could be phased, 1-Design/Earthwork; 2-Pavement Section. Potentially target two transfer programs)</td></tr>
+                        <tr class="cip-year-start"><td class="cip-year">Long Term</td><td class="cip-project">Partial Parallel Taxiway A (A2 to A3)</td><td class="cip-num">—</td><td class="cip-num">$4,000,000</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$4,000,000</td><td class="cip-num">$2,266,000</td><td class="cip-comment">2031 - 2034 Entitlements</td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">Runway 3-21 Reconstruction 2035-2039</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$6,000,000</td><td class="cip-comment"></td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">Runway 3-21 Extension</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-comment">Extension Length TBD</td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">Expand Aircraft Parking Apron and Correct Direct Apron Access</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$1,000,000</td><td class="cip-comment"></td></tr>
+                        <tr><td class="cip-year"></td><td class="cip-project">Partial Parallel Taxiway A (A5 to A6)</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">—</td><td class="cip-num">$3,000,000</td><td class="cip-comment"></td></tr>
+                    </tbody>
+                </table>
+                </div>
+                <p class="click-hint">Source: FAA WIMS CIP Worksheet. Dashes indicate $0 or no amount entered.</p>
             </div>
             
             <h3 style="margin-top: 40px; color: #1a5276; border-bottom: 2px solid #1a5276; padding-bottom: 10px;">Unmet Funding Requirements</h3>
@@ -2031,7 +2146,8 @@
             
             <div style="background: #eaf2f8; padding: 15px 20px; border-radius: 8px; margin-top: 20px;">
                 <strong>Total Immediate Funding Need:</strong> ~$2,989,893<br>
-                <small>Note: Taxilane Extension remaining need is based on the original full build-out estimate. Hot Refuel Pads funding options include congressional project funding (CPF/CDS), CDOT and FAA allocations, and a 2027 DCIP re-application. Some projects may qualify for FAA AIP discretionary grants, state aviation grants, or private investment partnerships.</small>
+                <strong>Las Animas County Local Match:</strong> $69,000 – $261,000, depending on funding source<br>
+                <small>Note: Taxilane Extension remaining need is based on the expected project execution cost of $366,388. The CIP above lists the Taxi Lane Extension at $714,700, a high-end worst-case estimate provided to the state. Hot Refuel Pads funding options include congressional project funding (CPF/CDS), CDOT and FAA allocations, and a 2027 DCIP re-application. Some projects may qualify for FAA AIP discretionary grants, state aviation grants, or private investment partnerships.</small>
             </div>
             
             <div class="report-actions">
