@@ -79,7 +79,7 @@
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow-x: auto;
+            overflow: hidden;
             border: 3px solid #1a5276;
         }
         
@@ -102,16 +102,40 @@
             font-size: 0.95em;
         }
         
-        /* Gantt Chart Styles */
+        /* Gantt Chart Styles
+           Columns: sticky category column + one column per year (set by --gantt-years in JS).
+           Years keep a minimum width, so adding years makes the chart scroll sideways
+           instead of squeezing the bars. */
+        .gantt-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+        }
+        
+        .gantt-scroll-hint {
+            display: none;
+            text-align: center;
+            font-size: 0.85em;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .gantt-scroll-hint.visible {
+            display: block;
+        }
+        
         .gantt-chart {
+            --gantt-cols: 150px repeat(var(--gantt-years, 5), minmax(190px, 1fr));
             position: relative;
-            min-width: 900px;
-            table-layout: fixed;
+            width: 100%;
+            min-width: calc(150px + var(--gantt-years, 5) * 190px);
         }
         
         .gantt-header {
             display: grid;
-            grid-template-columns: 140px repeat(5, 1fr);
+            grid-template-columns: var(--gantt-cols);
             border-bottom: 2px solid #1a5276;
             margin-bottom: 0;
         }
@@ -121,6 +145,11 @@
             font-weight: 600;
             color: #1a5276;
             font-size: 0.85em;
+            position: sticky;
+            left: 0;
+            z-index: 7;
+            background: white;
+            border-right: 2px solid #1a5276;
         }
         
         .gantt-year {
@@ -132,16 +161,21 @@
             border-left: 1px solid #e0e0e0;
         }
         
+        .gantt-year.current {
+            background: #eaf2f8;
+        }
+        
         .gantt-body {
             position: relative;
         }
         
         .gantt-row {
             display: grid;
-            grid-template-columns: 140px repeat(5, 1fr);
+            grid-template-columns: var(--gantt-cols);
             min-height: 50px;
             border-bottom: 1px solid #eee;
             align-items: stretch;
+            background: white;
         }
         
         .gantt-row:hover {
@@ -157,10 +191,9 @@
             display: flex;
             align-items: center;
             border-right: 2px solid #1a5276;
-        }
-        
-        .gantt-cells {
-            display: contents;
+            position: sticky;
+            left: 0;
+            z-index: 6;
         }
         
         .gantt-cell {
@@ -173,7 +206,10 @@
             flex-direction: column;
             justify-content: center;
             gap: 4px;
-            overflow: hidden;
+        }
+        
+        .gantt-cell.current {
+            background: rgba(234, 242, 248, 0.6);
         }
         
         /* Gantt Bars */
@@ -216,49 +252,42 @@
         .gantt-bar.grant {
             background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
         }
-        
-        /* Multi-year bars */
-        .gantt-bar.span-2 {
-            position: absolute;
-            left: 4px;
-            right: -100%;
-            margin-right: 4px;
+
+        .gantt-bar.private {
+            background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%);
         }
         
-        .gantt-bar.span-3 {
-            position: absolute;
-            left: 4px;
-            right: -200%;
-            margin-right: 4px;
-        }
-        
-        .gantt-cell.span-start {
-            position: relative;
-            overflow: visible;
-        }
-        
-        .gantt-cell.span-start .gantt-bar-spanning {
-            position: absolute;
-            left: 4px;
-            right: -200%;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 5;
-            white-space: normal;
-            min-height: 32px;
-            display: flex;
+        /* Completed projects keep their funding color and get a check badge */
+        .gantt-check,
+        .legend-check {
+            display: inline-flex;
             align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            color: #1e8449;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+        }
+
+        .gantt-check {
+            margin-right: 6px;
+        }
+
+        .legend-check {
+            border: 1px solid #1e8449;
         }
         
-        /* Year grid lines */
-        .gantt-cell::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: #e8e8e8;
+        @media print {
+            .timeline-container { overflow: visible !important; }
+            .gantt-scroll { overflow: visible; border: none; }
+            .gantt-chart { width: 100%; min-width: 0; --gantt-cols: 110px repeat(var(--gantt-years, 5), 1fr); }
+            .gantt-category, .gantt-header-label { position: static; }
         }
         
         /* Legend */
@@ -288,6 +317,7 @@
         .legend-color.county { background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%); }
         .legend-color.joint { background: linear-gradient(135deg, #9b59b6 0%, #7d3c98 100%); }
         .legend-color.grant { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); }
+        .legend-color.private { background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%); }
         
         /* Category section headers in gantt */
         .gantt-section-header {
@@ -302,6 +332,12 @@
         
         .gantt-section-header:first-of-type {
             margin-top: 0;
+        }
+
+        /* Keep section titles visible while the chart is scrolled sideways */
+        .gantt-section-header span {
+            position: sticky;
+            left: 15px;
         }
         
         /* Project Cards */
@@ -1026,7 +1062,16 @@
         .project-modal-header.county { background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%); }
         .project-modal-header.joint { background: linear-gradient(135deg, #9b59b6 0%, #7d3c98 100%); }
         .project-modal-header.grant { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); }
+        .project-modal-header.private { background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%); }
         
+        .project-modal-header h3 .gantt-check {
+            width: 24px;
+            height: 24px;
+            font-size: 15px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
         .project-modal-header h3 {
             font-size: 1.3em;
             font-weight: 600;
@@ -1206,7 +1251,7 @@
             <li><a href="#top" data-section="top">🏠 Overview</a></li>
             <li><a href="#timeline" data-section="timeline">📅 Development Timeline</a></li>
             <li><a href="#vision" data-section="vision">🎯 Airport Vision</a></li>
-            <li><a href="#commercial" data-section="commercial">✈️ Commercial Service</a></li>
+            <li hidden><a href="#commercial" data-section="commercial">✈️ Commercial Service</a></li><!-- hidden for now; remove "hidden" to restore -->
             <li><a href="#operations" data-section="operations">📈 Operations Data</a></li>
             <li><a href="#statistics" data-section="statistics">📊 Growth Targets</a></li>
             <li><a href="#fees" data-section="fees">💰 Fee Schedule</a></li>
@@ -1225,7 +1270,7 @@
     <div class="header" id="top">
         <h1>Perry Stokes Airport (KTAD)</h1>
         <div class="subtitle">Airport Development Roadmap</div>
-        <div class="date">Last Updated February 9, 2026</div>
+        <div class="date">Last Updated September 21, 2026</div>
     </div>
     
     <div class="container">
@@ -1241,7 +1286,7 @@
                     <div class="nav-box-icon">🎯</div>
                     <div class="nav-box-title">Airport Vision</div>
                 </a>
-                <a href="#commercial" class="nav-box">
+                <a href="#commercial" class="nav-box" hidden><!-- hidden for now; remove "hidden" to restore -->
                     <div class="nav-box-icon">✈️</div>
                     <div class="nav-box-title">Is Commercial Passenger Service Possible?</div>
                 </a>
@@ -1253,14 +1298,14 @@
                     <div class="nav-box-icon">📊</div>
                     <div class="nav-box-title">Airport Growth Targets</div>
                 </a>
-            </div>
-            
-            <!-- Navigation Boxes - Row 2 -->
-            <div class="nav-boxes" style="margin-top: 15px;">
                 <a href="#fees" class="nav-box">
                     <div class="nav-box-icon">💰</div>
                     <div class="nav-box-title">Proposed Airport Fee Schedule</div>
                 </a>
+            </div>
+            
+            <!-- Navigation Boxes - Row 2 -->
+            <div class="nav-boxes" style="margin-top: 15px;">
                 <a href="#cip" class="nav-box">
                     <div class="nav-box-icon">📋</div>
                     <div class="nav-box-title">CIP & Funding Needs</div>
@@ -1276,10 +1321,10 @@
             </div>
         </div>
         
-        <!-- GANTT-STYLE TIMELINE -->
+        <!-- GANTT-STYLE TIMELINE (rendered from timelineRows in the script at the bottom of the page) -->
         <div class="timeline-container" id="timeline">
             <div class="timeline-header">
-                <h2>Development Timeline 2025–2029</h2>
+                <h2 id="timelineTitle">Development Timeline</h2>
                 <p>Click any project bar to view details</p>
             </div>
             
@@ -1288,200 +1333,13 @@
                 <div class="legend-item"><div class="legend-color county"></div><span>Las Animas County</span></div>
                 <div class="legend-item"><div class="legend-color joint"></div><span>Joint Partnership</span></div>
                 <div class="legend-item"><div class="legend-color grant"></div><span>Grant Funded</span></div>
+                <div class="legend-item"><div class="legend-color private"></div><span>Private Party</span></div>
+                <div class="legend-item"><span class="legend-check">✓</span><span>Complete</span></div>
             </div>
             
-            <div class="gantt-chart">
-                <!-- Header -->
-                <div class="gantt-header">
-                    <div class="gantt-header-label">Category</div>
-                    <div class="gantt-year">2025</div>
-                    <div class="gantt-year">2026</div>
-                    <div class="gantt-year">2027</div>
-                    <div class="gantt-year">2028</div>
-                    <div class="gantt-year">2029</div>
-                </div>
-                
-                <div class="gantt-body">
-                    <!-- INFRASTRUCTURE SECTION -->
-                    <div class="gantt-section-header">Infrastructure Projects</div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Septic System</div>
-                        <div class="gantt-cell"><span class="gantt-bar county" onclick="openProjectModal('septic')">✓ Septic System Complete</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Pavement</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell">
-                            <span class="gantt-bar joint" onclick="openProjectModal('crack')">Runway & Apron Crack Repairs</span>
-                            <span class="gantt-bar county" onclick="openProjectModal('sealcoat')">Airport Seal Coat</span>
-                        </div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">New Taxilane</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar county" onclick="openProjectModal('taxilane')">Private Hangar Taxilane Construction</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Hot Refuel Point</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell span-start"><span class="gantt-bar grant gantt-bar-spanning" onclick="openProjectModal('helipad')">Dedicated Helipad & Hot Refuel Installation (Schedules A-C)</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Parking Lot</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('parking')">Parking Lot Phased Repairs</span></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <!-- FACILITIES SECTION -->
-                    <div class="gantt-section-header">Facility Projects</div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Bathroom Remodel</div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('bathroom')">Terminal Bathroom 1 Renovation</span></div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('bathroom')">Terminal Bathroom 2 Renovation</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Storage Units</div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('storage')">Hangar End Unit Storage Buildout</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Terminal Renovation</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('terminal')">Terminal Cosmetic Renovation</span></div>
-                        <div class="gantt-cell"><span class="gantt-bar grant" onclick="openProjectModal('terminal')">Terminal MEP & Windows (Grant)</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Large Hangar</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar joint" onclick="openProjectModal('hangar')">Transient Aircraft Hangar Construction</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Private Hangars</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('private-hangars')">Private Hangar Ground Lease Dev</span></div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('private-hangars')">Private Hangar Continued Buildout</span></div>
-                    </div>
-                    
-                    <!-- SERVICES SECTION -->
-                    <div class="gantt-section-header">Service Additions</div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Hangar Share</div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('hangarshare')">✓ Transient Hangar Share Program</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Rental Cars</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('rental')">Airport Rental Car Service Launch</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Radio Frequency</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('ctaf')">New Dedicated CTAF Frequency</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Full Service FBO</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar pjc" onclick="openProjectModal('fbo-services')">Full Service FBO Equipment Purchase</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Fuel Operations</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell">
-                            <span class="gantt-bar pjc" onclick="openProjectModal('avgas')">Dedicated AVGAS Fuel Truck</span>
-                            <span class="gantt-bar pjc" onclick="openProjectModal('dla')">DLA & CAA Fuel Contracts</span>
-                        </div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <!-- GOVERNANCE SECTION -->
-                    <div class="gantt-section-header">Governance & Events</div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">90th Anniversary</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar joint" onclick="openProjectModal('anniversary')">90th Anniversary Fly-In & Community Event</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Minimum Standards</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar joint" onclick="openProjectModal('minstandards')">Commercial Minimum Standards Adoption</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                    
-                    <div class="gantt-row">
-                        <div class="gantt-category">Airport Authority</div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"><span class="gantt-bar joint" onclick="openProjectModal('authority')">Establish Perry Stokes Airport Authority</span></div>
-                        <div class="gantt-cell"></div>
-                        <div class="gantt-cell"></div>
-                    </div>
-                </div>
+            <div class="gantt-scroll-hint no-print">◀ Scroll sideways to see more years ▶</div>
+            <div class="gantt-scroll" id="ganttScroll">
+                <div class="gantt-chart" id="ganttChart"></div>
             </div>
         </div>
         
@@ -1583,7 +1441,8 @@
         </div>
         
         <!-- SECTION 2: Commercial Air Service -->
-        <div class="content-section" id="commercial">
+        <!-- Commercial service section hidden for now; remove "hidden" to restore -->
+        <div class="content-section" id="commercial" hidden>
             <h2>Is Commercial Passenger Service Possible at KTAD?</h2>
             
             <p>Commercial Air Service at Perry Stokes Airport is a long term vision requiring 10-15 years of sustained investment and demonstrated growth. This section establishes the realistic framework for achieving scheduled passenger service while setting appropriate expectations.</p>
@@ -2686,7 +2545,7 @@
                     </div>
                     <div class="project-detail">
                         <div class="project-detail-label">Project Description</div>
-                        <div class="project-detail-value">Airport utilization is limited by lack of hangar and parking space for larger aircraft. This hangar includes a minimum door height of 21.5' and door width of 65-75'. The parking apron provides concrete parking for three fuel trucks and asphalt apron for two jets, connecting the hangar to the existing taxilane. This hangar is a prerequisite for applying for corporate fuel contracts and will significantly increase airport utilization.</div>
+                        <div class="project-detail-value">Airport utilization is limited by lack of hangar and parking space for larger aircraft. This hangar includes a minimum door height of 21.5' and door width of 65-75'. The parking apron provides concrete parking for three fuel trucks and asphalt apron for two jets, connecting the hangar to the existing taxilane. This hangar will significantly increase airport utilization.</div>
                     </div>
                     <div class="project-detail">
                         <div class="project-detail-label">Economic Impact</div>
@@ -2721,7 +2580,7 @@
                 <div class="project-card-body">
                     <div class="project-detail">
                         <div class="project-detail-label">Purpose</div>
-                        <div class="project-detail-value">Acquire equipment needed to service larger and more complex aircraft at the new hangar facility.</div>
+                        <div class="project-detail-value">Acquire equipment needed to service larger and more complex aircraft.</div>
                     </div>
                     <div class="project-detail">
                         <div class="project-detail-label">Project Description</div>
@@ -2856,7 +2715,7 @@
                 <div class="project-card-body">
                     <div class="project-detail">
                         <div class="project-detail-label">Purpose</div>
-                        <div class="project-detail-value">Secure Defense Logistics Agency (DLA) and Corporate Aviation Association (CAA) fuel contracts to expand the airport's customer base. A DLA contract allows government and military aircraft to purchase fuel using government credit cards at pre-negotiated rates, increasing military utilization beyond the 4th Combat Aviation Brigade. CAA membership provides access to corporate flight departments seeking fuel discounts, expanding business aviation traffic. These contracts require adequate hangar and service infrastructure, making the main hangar a prerequisite for contract eligibility.</div>
+                        <div class="project-detail-value">Secure Defense Logistics Agency (DLA) and Corporate Aviation Association (CAA) fuel contracts to expand the airport's customer base. A DLA contract allows government and military aircraft to purchase fuel using government credit cards at pre-negotiated rates, increasing military utilization beyond the 4th Combat Aviation Brigade. CAA membership provides access to corporate flight departments seeking fuel discounts, expanding business aviation traffic.</div>
                     </div>
                     <div class="project-detail">
                         <div class="project-detail-label">Who Pays</div>
@@ -2992,6 +2851,138 @@
             };
         }
         
+        // ===== Development Timeline =====
+        // To add years, change TIMELINE_END_YEAR. To add a project, add a bar to a row below.
+        // Bar fields: year, label, type (pjc | county | joint | grant | private), project (key in projectData),
+        //             complete (optional, shows a check mark), span (optional, number of years the bar covers)
+        const TIMELINE_START_YEAR = 2025;
+        const TIMELINE_END_YEAR = 2030;
+
+        const timelineRows = [
+            { section: 'Infrastructure Projects' },
+            { category: 'Septic System', bars: [
+                { year: 2025, label: 'Septic System', type: 'county', project: 'septic', complete: true }
+            ]},
+            { category: 'Pavement', bars: [
+                { year: 2026, label: 'Runway & Apron Crack Repairs', type: 'joint', project: 'crack', complete: true },
+                { year: 2026, label: 'Airport Seal Coat', type: 'county', project: 'sealcoat', complete: true }
+            ]},
+            { category: 'New Taxilane', bars: [
+                { year: 2026, label: 'Private Hangar Taxilane Construction', type: 'county', project: 'taxilane' }
+            ]},
+            { category: 'Hot Refuel Point', bars: [
+                { year: 2027, span: 3, label: 'Dedicated Helipad & Hot Refuel Installation (Schedules A-C)', type: 'grant', project: 'helipad' }
+            ]},
+            { category: 'Parking Lot', bars: [
+                { year: 2028, label: 'Parking Lot Phased Repairs', type: 'pjc', project: 'parking' }
+            ]},
+
+            { section: 'Facility Projects' },
+            { category: 'Bathroom Remodel', bars: [
+                { year: 2025, label: 'Terminal Bathroom 1 Renovation', type: 'pjc', project: 'bathroom', complete: true },
+                { year: 2026, label: 'Terminal Bathroom 2 Renovation', type: 'pjc', project: 'bathroom', complete: true }
+            ]},
+            { category: 'Storage Units', bars: [
+                { year: 2025, label: 'Hangar End Unit Storage Buildout', type: 'pjc', project: 'storage', complete: true }
+            ]},
+            { category: 'Terminal Renovation', bars: [
+                { year: 2026, label: 'Terminal Cosmetic Renovation', type: 'pjc', project: 'terminal' },
+                { year: 2027, label: 'Terminal MEP & Windows (Grant)', type: 'grant', project: 'terminal' }
+            ]},
+            { category: 'Large Hangar', bars: [
+                { year: 2028, label: 'Transient Aircraft Hangar Construction', type: 'joint', project: 'hangar' }
+            ]},
+            { category: 'Private Hangars', bars: [
+                { year: 2026, label: 'Private Hangar Construction 1', type: 'private', project: 'private-hangar-1' }
+            ]},
+
+            { section: 'Service Additions' },
+            { category: 'Hangar Share', bars: [
+                { year: 2025, label: 'Transient Hangar Share Program', type: 'pjc', project: 'hangarshare', complete: true }
+            ]},
+            { category: 'Rental Cars', bars: [
+                { year: 2026, label: 'Airport Rental Car Service', type: 'pjc', project: 'rental', complete: true }
+            ]},
+            { category: 'Full Service FBO', bars: [
+                { year: 2027, label: 'Full Service FBO Equipment Purchase', type: 'pjc', project: 'fbo-services' }
+            ]},
+            { category: 'Fuel Operations', bars: [
+                { year: 2026, label: 'Purchase of Second Jet Fuel Truck', type: 'pjc', project: 'jet-truck-2' },
+                { year: 2027, label: 'CAA Fuel Contract', type: 'pjc', project: 'caa' },
+                { year: 2028, label: 'Dedicated AVGAS Fuel Truck', type: 'pjc', project: 'avgas' },
+                { year: 2028, label: 'DLA Fuel Contract', type: 'pjc', project: 'dla' }
+            ]},
+
+            { section: 'Governance & Events' },
+            { category: '90th Anniversary', bars: [
+                { year: 2027, label: '90th Anniversary Fly-In & Community Event', type: 'joint', project: 'anniversary' }
+            ]},
+            { category: 'Minimum Standards', bars: [
+                { year: 2027, label: 'Commercial Minimum Standards Adoption', type: 'joint', project: 'minstandards' }
+            ]},
+            { category: 'Airport Authority', bars: [
+                { year: 2027, label: 'Establish Perry Stokes Airport Authority', type: 'joint', project: 'authority' }
+            ]}
+        ];
+
+        function escapeHtml(text) {
+            return String(text).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        function renderTimeline() {
+            const chart = document.getElementById('ganttChart');
+            if (!chart) return;
+
+            const years = [];
+            for (let y = TIMELINE_START_YEAR; y <= TIMELINE_END_YEAR; y++) years.push(y);
+            const currentYear = new Date().getFullYear();
+            chart.style.setProperty('--gantt-years', years.length);
+            document.getElementById('timelineTitle').textContent =
+                `Development Timeline ${TIMELINE_START_YEAR}\u2013${TIMELINE_END_YEAR}`;
+
+            const barHtml = bar => `<span class="gantt-bar ${bar.type}${bar.complete ? ' complete' : ''}" ` +
+                `onclick="openProjectModal('${bar.project}')">` +
+                `${bar.complete ? '<span class="gantt-check">\u2713</span>' : ''}${escapeHtml(bar.label)}</span>`;
+
+            let html = '<div class="gantt-header"><div class="gantt-header-label">Category</div>';
+            years.forEach(y => {
+                html += `<div class="gantt-year${y === currentYear ? ' current' : ''}">${y}</div>`;
+            });
+            html += '</div><div class="gantt-body">';
+
+            timelineRows.forEach(row => {
+                if (row.section) {
+                    html += `<div class="gantt-section-header"><span>${escapeHtml(row.section)}</span></div>`;
+                    return;
+                }
+                html += `<div class="gantt-row"><div class="gantt-category">${escapeHtml(row.category)}</div>`;
+                let i = 0;
+                while (i < years.length) {
+                    const starting = row.bars.filter(b => b.year === years[i]);
+                    const span = Math.min(Math.max(1, ...starting.map(b => b.span || 1)), years.length - i);
+                    const current = years.slice(i, i + span).includes(currentYear) ? ' current' : '';
+                    const style = span > 1 ? ` style="grid-column: span ${span};"` : '';
+                    html += `<div class="gantt-cell${current}"${style}>${starting.map(barHtml).join('')}</div>`;
+                    i += span;
+                }
+                html += '</div>';
+            });
+            html += '</div>';
+            chart.innerHTML = html;
+
+            updateTimelineScrollHint();
+        }
+
+        function updateTimelineScrollHint() {
+            const scroller = document.getElementById('ganttScroll');
+            const hint = document.querySelector('.gantt-scroll-hint');
+            if (!scroller || !hint) return;
+            hint.classList.toggle('visible', scroller.scrollWidth > scroller.clientWidth + 1);
+        }
+
+        renderTimeline();
+        window.addEventListener('resize', updateTimelineScrollHint);
+
         // Project Data
         const projectData = {
             'septic': {
@@ -3008,25 +2999,25 @@
             },
             'bathroom': {
                 title: 'Bathroom Renovation',
-                year: '2025 • In Progress',
+                year: '2025-2026 • Complete',
                 type: 'pjc',
                 details: [
                     { label: 'Purpose', value: 'Modernize the historic terminal\'s bathroom facilities to meet ADA compliance and support overnight aircraft crews.' },
                     { label: 'Project Description', value: 'Complete demolition of both existing bathrooms, replacement of all electrical and plumbing fixtures to align with new septic lines, and rough-in of one shower with new electrical throughout. The finished bathrooms will feature high-end tile and brushed stainless fixtures to create an elegant, comfortable facility capable of supporting aircrews staying overnight. All work meets ADA compliance requirements including installation of a water fountain.' },
                     { label: 'Who Pays', value: 'Pinnacle Jet Centers (Private Investment)' },
-                    { label: 'Timeline', value: 'Bath 1 Complete by Jan 2026 • Bath 2 Complete by June 2026' }
+                    { label: 'Timeline', value: 'Bath 1 Complete • Bath 2 Complete' }
                 ],
                 cost: { label: 'Total Investment', amount: '$40,288' }
             },
             'storage': {
                 title: 'Storage Unit Buildout',
-                year: '2025 • In Progress',
+                year: '2025 • Complete',
                 type: 'pjc',
                 details: [
                     { label: 'Purpose', value: 'Maximize use of existing rentable spaces by converting end units to vehicle and equipment storage.' },
                     { label: 'Project Description', value: 'Replace garage doors on three hangar buildings and produce long-term storage agreements with a multi-year fee structure. Converting these underutilized spaces creates additional revenue while providing valuable covered storage options for airport tenants and community members.' },
                     { label: 'Who Pays', value: 'Pinnacle Jet Centers (Private Investment)' },
-                    { label: 'Timeline', value: 'Doors installed Dec 2025 • New leases in 2026' }
+                    { label: 'Timeline', value: 'Doors installed Dec 2025 • Complete' }
                 ],
                 cost: { label: 'Total Investment', amount: '$5,000' }
             },
@@ -3044,25 +3035,25 @@
             },
             'crack': {
                 title: 'Apron & Teacup Crack Repairs',
-                year: 'Spring 2026',
+                year: '2026 • Complete',
                 type: 'joint',
                 details: [
                     { label: 'Purpose', value: 'Fill major cracks on airport surfaces prior to seal coat project. Uses CDOT statewide programs for materials.' },
                     { label: 'Project Description', value: 'Apply mastic to major cracks along Taxiway A3, A4, and the Runway 21 teacup which are severe and must be addressed before seal coating can be effective. PJC will pick up the mastic machine from Colorado Springs (KCFO) and apply approximately 40 hours of labor to fill large cracks across the airport.' },
                     { label: 'Who Pays', value: 'CDOT (90% materials) • County (~$1,000) • PJC (~$1,330 labor)' },
-                    { label: 'Timeline', value: 'Spring 2026 (before seal coat)' }
+                    { label: 'Timeline', value: 'Complete (before seal coat)' }
                 ],
                 cost: { label: 'Total Project Cost', amount: '~$10,000 (mostly CDOT)' }
             },
             'sealcoat': {
                 title: 'Airport Seal Coat',
-                year: 'Spring 2026',
+                year: '2026 • Complete',
                 type: 'county',
                 details: [
                     { label: 'Purpose', value: 'CDOT-funded maintenance to prolong current asphalt lifespan on runways and taxiways.' },
                     { label: 'Project Description', value: 'This preventative maintenance treatment protects pavement from weather damage and extends the usable life of airport surfaces, deferring the need for more costly reconstruction. The crack repair project must be completed before seal coating can begin.' },
                     { label: 'Who Pays', value: 'CDOT Division of Aeronautics • County coordination' },
-                    { label: 'Timeline', value: 'March 2026 (estimated)' }
+                    { label: 'Timeline', value: 'Complete' }
                 ],
                 cost: { label: 'Total Investment', amount: 'CDOT Funded' }
             },
@@ -3106,27 +3097,15 @@
             },
             'rental': {
                 title: 'Rental Car Service',
-                year: 'Spring 2026',
+                year: '2026 • Complete',
                 type: 'pjc',
                 details: [
                     { label: 'Purpose', value: 'Partner with nationally recognized rental car company to address major limitation of ground transportation availability.' },
                     { label: 'Project Description', value: 'The current courtesy car is insufficient to meet peak demand during spring and fall, resulting in lost flight reservations. PJC will partner with a nationally recognized rental car company to provide flight crews with reliable rental cars during all seasons. This service addition removes a significant barrier to airport utilization and supports increased business aviation traffic.' },
                     { label: 'Who Pays', value: 'Pinnacle Jet Centers (Operational Partnership)' },
-                    { label: 'Timeline', value: 'Agreement in progress • Launch Spring 2026' }
+                    { label: 'Timeline', value: 'Complete • Service launched 2026' }
                 ],
                 cost: { label: 'Total Investment', amount: '$0 (Partnership)' }
-            },
-            'ctaf': {
-                title: 'New Radio Frequency (CTAF)',
-                year: 'Spring 2026',
-                type: 'pjc',
-                details: [
-                    { label: 'Purpose', value: 'Safety improvement—all nearby airports share the same frequency, causing confusion. New dedicated frequency reduces pilot confusion.' },
-                    { label: 'Project Description', value: 'Currently, all nearby airports use the same Common Traffic Advisory Frequency (CTAF), resulting in radio transmissions from pilots at other airports cluttering Perry Stokes communications. A dedicated frequency will reduce confusion for pilots operating at Perry Stokes, particularly student pilots and those unfamiliar with the area. PJC will request the new frequency from the FCC and coordinate publication changes with the FAA.' },
-                    { label: 'Who Pays', value: 'Pinnacle Jet Centers' },
-                    { label: 'Timeline', value: 'FCC application Jan 2026 • 30-90 days for approval' }
-                ],
-                cost: { label: 'Total Investment', amount: 'Administrative Only' }
             },
             'terminal': {
                 title: 'Terminal Renovation',
@@ -3142,19 +3121,19 @@
             },
             'minstandards': {
                 title: 'Airport Minimum Standards',
-                year: 'Fall 2026',
+                year: '2027',
                 type: 'joint',
                 details: [
                     { label: 'Purpose', value: 'Establish standardized requirements for commercial entities (insurance, operating standards) to ensure all businesses meet County vision for airport development.' },
                     { label: 'Project Description', value: 'Growing aeronautical use creates opportunities for commercial leasing at the airport. Commercial Minimum Standards create a standardized list of requirements for all commercial entities, including insurance requirements, business operating standards, and facility maintenance expectations. Las Animas County, advised by their engineer of record and the FBO, will approve standards covering all commercial and private aeronautical users as well as non-aeronautical users in the planned industrial park.' },
                     { label: 'Who Pays', value: 'Pinnacle Jet Centers (50%) • Las Animas County (50%)' },
-                    { label: 'Timeline', value: 'Fall 2026' }
+                    { label: 'Timeline', value: '2027' }
                 ],
                 cost: { label: 'Total Investment', amount: 'TBD (shared 50/50)' }
             },
             'anniversary': {
                 title: '90th Anniversary Fly-In & Community Event',
-                year: 'August 2026',
+                year: '2027',
                 type: 'joint',
                 image: 'images/90th_anniversary_flyer.png',
                 details: [
@@ -3162,7 +3141,7 @@
                     { label: 'Project Description', value: 'The two-day event includes a Fly-In open to aviators (free overnight parking, fuel sold at cost, shuttle service to town) and a Community Day open to the public. Community Day will showcase airport improvements with military helicopter static displays from Fort Carson, corporate jet displays, aviation career booths, and discovery flights for interested community members. This event introduces the community to aviation career opportunities while demonstrating the airport\'s growth to regional aviators.' },
                     { label: 'Features', value: 'Military helicopter static displays • Corporate jet displays • Aviation career booths • Discovery flights • Food vendors • Shuttle service' },
                     { label: 'Who Leads', value: 'Pinnacle Jet Centers • City of Trinidad • Las Animas County' },
-                    { label: 'Timeline', value: 'August 22-23, 2026' }
+                    { label: 'Timeline', value: '2027 (dates TBD)' }
                 ],
                 cost: { label: 'Expected Attendance', amount: 'Up to 800 people' }
             },
@@ -3180,11 +3159,11 @@
             },
             'hangar': {
                 title: 'Main Hangar Construction',
-                year: 'Summer 2027',
+                year: '2028',
                 type: 'joint',
                 details: [
                     { label: 'Purpose', value: 'Construct 75\'x85\' insulated hangar capable of holding two light business jets (Challenger 350 class). Currently losing ~1 overnight jet stay per week due to lack of hangar space.' },
-                    { label: 'Project Description', value: 'Airport utilization is limited by lack of hangar and parking space for larger aircraft. This hangar includes a minimum door height of 21.5\' and door width of 65-75\'. The parking apron provides concrete parking for three fuel trucks and asphalt apron for two jets, connecting the hangar to the existing taxilane. This hangar is a prerequisite for applying for corporate fuel contracts and will significantly increase airport utilization.' },
+                    { label: 'Project Description', value: 'Airport utilization is limited by lack of hangar and parking space for larger aircraft. This hangar includes a minimum door height of 21.5\' and door width of 65-75\'. The parking apron provides concrete parking for three fuel trucks and asphalt apron for two jets, connecting the hangar to the existing taxilane. This hangar will significantly increase airport utilization.' },
                     { label: 'Economic Impact', value: '• 30% increase in jet traffic over 3 years<br>• Double business aviation fuel sales (12K→24K gal/yr)<br>• ~100 additional monthly tourist visits by 2030<br>• Est. $768,000/year local economic impact' },
                     { label: 'Who Pays', value: 'PJC Cash $250K • PJC Loan $250K • County Grant $300K (requested) • Unmet Need $200K' },
                     { label: 'Note', value: 'Hangar reverts to County ownership at end of PJC lease term.' }
@@ -3196,7 +3175,7 @@
                 year: 'Jan-Jul 2027',
                 type: 'pjc',
                 details: [
-                    { label: 'Purpose', value: 'Acquire equipment needed to service larger and more complex aircraft at the new hangar facility.' },
+                    { label: 'Purpose', value: 'Acquire equipment needed to service larger and more complex aircraft.' },
                     { label: 'Project Description', value: 'Conduct phased purchases and develop training programs for ground support equipment essential to servicing business jets. This equipment enables the airport to provide full-service support comparable to larger regional FBOs, removing service limitations that currently constrain business aviation growth.' },
                     { label: 'Equipment', value: '• Heavy-duty aircraft tug and towbar (14,000-50,000 lbs capacity)<br>• Lavatory service cart<br>• Ground Power Units (GPU) with electrical infrastructure<br>• De-ice cart for winter operations' },
                     { label: 'Who Pays', value: 'Pinnacle Jet Centers (Private Investment)' }
@@ -3216,17 +3195,24 @@
                 ],
                 cost: { label: 'Total Project Cost (DCIP)', amount: 'Up to $2,466,845' }
             },
-            'private-hangars': {
-                title: 'Private Hangar Development',
-                year: '2028-2029',
+            'private-hangar-1': {
+                title: 'Private Hangar Construction 1',
+                year: '2026',
+                type: 'private',
+                details: [
+                    { label: 'Project Description', value: 'Details coming soon.' }
+                ],
+                cost: { label: 'Total Investment', amount: 'TBD' }
+            },
+            'jet-truck-2': {
+                title: 'Purchase of Second Jet Fuel Truck',
+                year: '2026',
                 type: 'pjc',
                 details: [
-                    { label: 'Purpose', value: 'Facilitate private hangar construction on new ground lease plots created by 2026 taxilane project. Up to 6-12 privately owned hangars by 2035.' },
-                    { label: 'Project Description', value: 'Airport growth is constrained by hangar availability, especially in a location with unpredictable and destructive weather. Private developers will build and own their hangars on County-leased land, creating sustainable revenue for the County while expanding airport capacity. The Airport Layout Plan (ALP) shows potential for 6-12 privately owned 60\'x60\' (or similar sized) hangars. PJC will assist in finding creative funding solutions for interested hangar developers.' },
-                    { label: 'Who Pays', value: 'Private Developers (ground leases to County)' },
-                    { label: 'Revenue to County', value: '$100-300/month per hangar (based on size)' }
+                    { label: 'Purpose', value: 'Add a second Jet-A fuel truck to increase fueling capacity for military and business aviation customers.' },
+                    { label: 'Who Pays', value: 'Pinnacle Jet Centers' }
                 ],
-                cost: { label: 'Private Investment Potential', amount: '$400,000 - $1,200,000' }
+                cost: { label: 'Total Investment', amount: 'TBD' }
             },
             'avgas': {
                 title: 'AVGAS Fuel Truck',
@@ -3240,11 +3226,21 @@
                 cost: { label: 'Total Investment', amount: 'TBD' }
             },
             'dla': {
-                title: 'DLA & CAA Fuel Contracts',
+                title: 'DLA Fuel Contract',
                 year: '2028',
                 type: 'pjc',
                 details: [
-                    { label: 'Purpose', value: 'Secure Defense Logistics Agency (DLA) and Corporate Aviation Association (CAA) fuel contracts to expand the airport\'s customer base. A DLA contract allows government and military aircraft to purchase fuel using government credit cards at pre-negotiated rates, increasing military utilization beyond the 4th Combat Aviation Brigade. CAA membership provides access to corporate flight departments seeking fuel discounts, expanding business aviation traffic. These contracts require adequate hangar and service infrastructure, making the main hangar a prerequisite for contract eligibility.' },
+                    { label: 'Purpose', value: 'Secure a Defense Logistics Agency (DLA) fuel contract to expand the airport\'s customer base. A DLA contract allows government and military aircraft to purchase fuel using government credit cards at pre-negotiated rates, increasing military utilization beyond the 4th Combat Aviation Brigade.' },
+                    { label: 'Who Pays', value: 'Pinnacle Jet Centers (Administrative)' }
+                ],
+                cost: { label: 'Total Investment', amount: 'Administrative Only' }
+            },
+            'caa': {
+                title: 'CAA Fuel Contract',
+                year: '2027',
+                type: 'pjc',
+                details: [
+                    { label: 'Purpose', value: 'Secure a Corporate Aviation Association (CAA) fuel contract. CAA membership provides access to corporate flight departments seeking fuel discounts, expanding business aviation traffic.' },
                     { label: 'Who Pays', value: 'Pinnacle Jet Centers (Administrative)' }
                 ],
                 cost: { label: 'Total Investment', amount: 'Administrative Only' }
@@ -3278,7 +3274,7 @@
             
             // Set header style
             header.className = 'project-modal-header ' + project.type;
-            title.textContent = project.title;
+            title.innerHTML = (/Complete/.test(project.year) ? '<span class="gantt-check">✓</span>' : '') + escapeHtml(project.title);
             year.textContent = project.year;
             
             // Build body content
