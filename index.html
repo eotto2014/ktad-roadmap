@@ -2011,20 +2011,12 @@
                         <td><span style="background: #3498db; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Phase 1 Funded • Completion Proposed 2027</span></td>
                     </tr>
                     <tr>
-                        <td><strong>Main Hangar Project</strong><br><small>(85'x70' or 120'x70')</small></td>
-                        <td>Necessary facility upgrade to increase airport utilization from jet traffic</td>
-                        <td>$1,000,000</td>
-                        <td>$500k, Private Funding – PJC</td>
-                        <td>$500,000</td>
-                        <td><span style="background: #f39c12; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Seeking Funding</span></td>
-                    </tr>
-                    <tr>
                         <td><strong>Terminal MEP & Windows</strong></td>
-                        <td>Historic terminal climate control upgrades, electrical panel upgrades to remove safety and power availability hazards, and new period-appropriate energy-efficient windows</td>
-                        <td>$560,000</td>
+                        <td>Historic terminal climate control upgrades, electrical panel upgrades to remove safety and power availability hazards, new period-appropriate energy-efficient windows, roof membrane replacement, and a commercial water heater upgrade</td>
+                        <td>$257,660<br><small>ATP grant application estimate</small></td>
                         <td>—</td>
-                        <td>$560,000</td>
-                        <td><span style="background: #f39c12; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Seeking Grant Funding</span></td>
+                        <td>$257,660</td>
+                        <td><span style="background: #e74c3c; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">No Grant Source Identified</span><br><small>ATP grant not funded</small></td>
                     </tr>
                     <tr>
                         <td><strong>Hot Refuel Pads</strong></td>
@@ -2038,7 +2030,7 @@
             </table>
             
             <div style="background: #eaf2f8; padding: 15px 20px; border-radius: 8px; margin-top: 20px;">
-                <strong>Total Immediate Funding Need:</strong> ~$3,792,233<br>
+                <strong>Total Immediate Funding Need:</strong> ~$2,989,893<br>
                 <small>Note: Taxilane Extension remaining need is based on the original full build-out estimate. Hot Refuel Pads funding options include congressional project funding (CPF/CDS), CDOT and FAA allocations, and a 2027 DCIP re-application. Some projects may qualify for FAA AIP discretionary grants, state aviation grants, or private investment partnerships.</small>
             </div>
             
@@ -2511,10 +2503,8 @@
                     <div class="project-detail">
                         <div class="project-detail-label">Benefits</div>
                         <div class="project-detail-value">
-                            • Allows airport to charge an additional $0.10/gallon fuel flowage fees from military sales for airport upkeep and development<br>
                             • Funds 1-2 airport maintenance employees<br>
-                            • Reduces BOCC approval burden for routine decisions, such as renewing leases<br>
-                            • ~$25,000/year retained in Airport Capital Fund
+                            • Reduces BOCC approval burden for routine decisions, such as renewing leases
                         </div>
                     </div>
                     <div class="project-detail">
@@ -3102,14 +3092,16 @@
             },
             'terminal-mep': {
                 title: 'Terminal MEP & Windows',
-                year: '2027 • Seeking Grant Funding',
+                year: '2027 • No Grant Source Identified',
                 type: 'grant',
                 details: [
-                    { label: 'Purpose', value: 'Upgrade the historic terminal\'s mechanical, electrical, and plumbing (MEP) systems and windows.' },
-                    { label: 'Project Description', value: 'We will be seeking grant funding to cover historic terminal MEP upgrades, including:<br>• Climate control upgrades<br>• Electrical panel upgrades to remove safety and power availability hazards<br>• New period-appropriate, energy-efficient windows' },
-                    { label: 'Who Pays', value: 'Grant Funding (being sought)' }
+                    { label: 'Purpose', value: 'Upgrade the historic terminal\'s mechanical, electrical, and plumbing (MEP) systems, windows, and roof.' },
+                    { label: 'Project Description', value: 'We will be seeking grant funding to cover historic terminal MEP upgrades, including:<br>• Climate control upgrades<br>• Electrical panel upgrades to remove safety and power availability hazards<br>• New period-appropriate, energy-efficient windows<br>• Roof membrane replacement<br>• Commercial water heater upgrade' },
+                    { label: 'Funding Status', value: 'The ATP grant application was not funded. No grant source is currently identified.' }
                 ],
-                cost: { label: 'Estimated Cost', amount: '$560,000' }
+                detailImage: 'images/terminal_mep_cost_estimate.png',
+                detailImageCaption: 'Cost estimate from the ATP grant application',
+                cost: { label: 'Estimated Cost (Budget)', amount: '$257,660' }
             },
             'minstandards': {
                 title: 'Airport Minimum Standards',
@@ -3144,7 +3136,7 @@
                 details: [
                     { label: 'Purpose', value: 'Create non-profit entity responsible for airport maintenance, lessee management, and minimum standards enforcement. Common structure at growing regional airports.' },
                     { label: 'Project Description', value: 'The Perry Stokes Airport Authority would manage day-to-day airport operations, collect and administer airport fees, and ensure all airport businesses comply with established standards. This governance structure is common at growing regional airports and prepares Perry Stokes for increased commercial activity. The full degree of authority granted will be established in the Authority\'s charter at the discretion of the Board of County Commissioners.' },
-                    { label: 'Benefits', value: '• Allows airport to charge an additional $0.10/gallon fuel flowage fees from military sales for airport upkeep and development<br>• Funds 1-2 airport maintenance employees<br>• Reduces BOCC approval burden for routine decisions, such as renewing leases<br>• ~$25,000/year retained in Airport Capital Fund' },
+                    { label: 'Benefits', value: '• Funds 1-2 airport maintenance employees<br>• Reduces BOCC approval burden for routine decisions, such as renewing leases' },
                     { label: 'Who Pays', value: 'Pinnacle Jet Centers (charter development)' }
                 ],
                 cost: { label: 'Cost to County', amount: '$0' }
@@ -3296,6 +3288,16 @@
                 `;
             });
             
+            // Add image shown after the details (e.g. a cost estimate) if available
+            if (project.detailImage) {
+                bodyHTML += `
+                    <div class="modal-image-container">
+                        <img src="${project.detailImage}" alt="${project.detailImageCaption || project.title}" class="modal-project-image">
+                        ${project.detailImageCaption ? `<p class="modal-image-caption">${project.detailImageCaption}</p>` : ''}
+                    </div>
+                `;
+            }
+
             // Add funding table if available
             if (project.fundingTable) {
                 bodyHTML += `
