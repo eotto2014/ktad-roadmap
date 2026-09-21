@@ -2008,11 +2008,11 @@
                 <tbody>
                     <tr>
                         <td><strong>Taxilane Extension</strong></td>
-                        <td>Opens 6 new affordable ground lease spots for private hangar construction</td>
-                        <td>$366,388</td>
-                        <td>$370,000<br><small>EIAF Grant $185k + County Cash $150k + County In-Kind $35k</small></td>
-                        <td>$0</td>
-                        <td><span style="background: #27ae60; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Grant Application Submitted</span></td>
+                        <td>Opens 6 new affordable ground lease spots for private hangar construction. Phase 1 (2026) opens the first two hangar lots.</td>
+                        <td>$366,388<br><small>Full build-out estimate</small></td>
+                        <td>~$101,000<br><small>County: Asphalt $50k (contracted) + In-Kind Base Work $35k + CatEX ~$16k (paid)</small></td>
+                        <td>~$265,388</td>
+                        <td><span style="background: #3498db; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Phase 1 Funded • Completion Proposed 2027</span></td>
                     </tr>
                     <tr>
                         <td><strong>Main Hangar Project</strong><br><small>(85'x70' or 120'x70')</small></td>
@@ -2024,26 +2024,26 @@
                     </tr>
                     <tr>
                         <td><strong>Terminal MEP & Windows</strong></td>
-                        <td>Mechanical, electrical, plumbing upgrades and window replacement for historic terminal building</td>
+                        <td>Historic terminal climate control upgrades, electrical panel upgrades to remove safety and power availability hazards, and new period-appropriate energy-efficient windows</td>
                         <td>$560,000</td>
                         <td>—</td>
                         <td>$560,000</td>
-                        <td><span style="background: #27ae60; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Grant Application Submitted</span></td>
+                        <td><span style="background: #f39c12; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Seeking Grant Funding</span></td>
                     </tr>
                     <tr>
                         <td><strong>Hot Refuel Pads</strong></td>
                         <td>Hot Refuel area to separate helicopter and plane traffic while increasing overall airport capacity</td>
                         <td>$2,466,845</td>
-                        <td>—</td>
+                        <td>—<br><small>PJC up to $50k committed if CPF/CDS funding is approved</small></td>
                         <td>$2,466,845</td>
-                        <td><span style="background: #3498db; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Grant Application In Progress</span></td>
+                        <td><span style="background: #3498db; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Pursuing CPF/CDS, CDOT &amp; FAA Funds</span></td>
                     </tr>
                 </tbody>
             </table>
             
             <div style="background: #eaf2f8; padding: 15px 20px; border-radius: 8px; margin-top: 20px;">
-                <strong>Total Immediate Funding Need:</strong> $3,526,845<br>
-                <small>Note: Taxilane Extension is fully funded pending EIAF grant approval. Some projects may qualify for FAA AIP discretionary grants, state aviation grants, or private investment partnerships.</small>
+                <strong>Total Immediate Funding Need:</strong> ~$3,792,233<br>
+                <small>Note: Taxilane Extension remaining need is based on the original full build-out estimate. Hot Refuel Pads funding options include congressional project funding (CPF/CDS), CDOT and FAA allocations, and a 2027 DCIP re-application. Some projects may qualify for FAA AIP discretionary grants, state aviation grants, or private investment partnerships.</small>
             </div>
             
             <div class="report-actions">
@@ -2864,17 +2864,16 @@
                 { year: 2025, label: 'Septic System', type: 'county', project: 'septic', complete: true }
             ]},
             { category: 'Pavement', bars: [
-                { year: 2026, label: 'Runway & Apron Crack Repairs', type: 'joint', project: 'crack', complete: true },
-                { year: 2026, label: 'Airport Seal Coat', type: 'county', project: 'sealcoat', complete: true }
+                { year: 2026, label: 'Airport Seal Coat and Crack Seal Repairs', type: 'grant', project: 'sealcoat', complete: true }
             ]},
             { category: 'New Taxilane', bars: [
-                { year: 2026, label: 'Private Hangar Taxilane Construction', type: 'county', project: 'taxilane' }
+                { year: 2026, span: 2, label: 'Private Hangar Taxilane Construction', type: 'county', project: 'taxilane' }
             ]},
             { category: 'Hot Refuel Point', bars: [
                 { year: 2027, span: 3, label: 'Dedicated Helipad & Hot Refuel Installation (Schedules A-C)', type: 'grant', project: 'helipad' }
             ]},
             { category: 'Parking Lot', bars: [
-                { year: 2028, label: 'Parking Lot Phased Repairs', type: 'pjc', project: 'parking' }
+                { year: 2028, label: 'Parking Lot Phased Repairs', type: 'joint', project: 'parking' }
             ]},
 
             { section: 'Facility Projects' },
@@ -2886,8 +2885,8 @@
                 { year: 2025, label: 'Hangar End Unit Storage Buildout', type: 'pjc', project: 'storage', complete: true }
             ]},
             { category: 'Terminal Renovation', bars: [
-                { year: 2026, label: 'Terminal Cosmetic Renovation', type: 'pjc', project: 'terminal' },
-                { year: 2027, label: 'Terminal MEP & Windows (Grant)', type: 'grant', project: 'terminal' }
+                { year: 2026, label: 'Terminal Cosmetic Renovation', type: 'pjc', project: 'terminal-cosmetic' },
+                { year: 2027, label: 'Terminal MEP & Windows (Grant)', type: 'grant', project: 'terminal-mep' }
             ]},
             { category: 'Large Hangar', bars: [
                 { year: 2028, label: 'Transient Aircraft Hangar Construction', type: 'joint', project: 'hangar' }
@@ -2907,7 +2906,7 @@
                 { year: 2027, label: 'Full Service FBO Equipment Purchase', type: 'pjc', project: 'fbo-services' }
             ]},
             { category: 'Fuel Operations', bars: [
-                { year: 2026, label: 'Purchase of Second Jet Fuel Truck', type: 'pjc', project: 'jet-truck-2' },
+                { year: 2026, label: 'Purchase of Second Jet Fuel Truck', type: 'pjc', project: 'jet-truck-2', complete: true },
                 { year: 2027, label: 'CAA Fuel Contract', type: 'pjc', project: 'caa' },
                 { year: 2028, label: 'Dedicated AVGAS Fuel Truck', type: 'pjc', project: 'avgas' },
                 { year: 2028, label: 'DLA Fuel Contract', type: 'pjc', project: 'dla' }
@@ -3033,91 +3032,88 @@
                 ],
                 cost: { label: 'Total Investment', amount: '$0 (Partnership)' }
             },
-            'crack': {
-                title: 'Apron & Teacup Crack Repairs',
-                year: '2026 • Complete',
-                type: 'joint',
-                details: [
-                    { label: 'Purpose', value: 'Fill major cracks on airport surfaces prior to seal coat project. Uses CDOT statewide programs for materials.' },
-                    { label: 'Project Description', value: 'Apply mastic to major cracks along Taxiway A3, A4, and the Runway 21 teacup which are severe and must be addressed before seal coating can be effective. PJC will pick up the mastic machine from Colorado Springs (KCFO) and apply approximately 40 hours of labor to fill large cracks across the airport.' },
-                    { label: 'Who Pays', value: 'CDOT (90% materials) • County (~$1,000) • PJC (~$1,330 labor)' },
-                    { label: 'Timeline', value: 'Complete (before seal coat)' }
-                ],
-                cost: { label: 'Total Project Cost', amount: '~$10,000 (mostly CDOT)' }
-            },
             'sealcoat': {
-                title: 'Airport Seal Coat',
+                title: 'Airport Seal Coat and Crack Seal Repairs',
                 year: '2026 • Complete',
-                type: 'county',
+                type: 'grant',
                 details: [
-                    { label: 'Purpose', value: 'CDOT-funded maintenance to prolong current asphalt lifespan on runways and taxiways.' },
-                    { label: 'Project Description', value: 'This preventative maintenance treatment protects pavement from weather damage and extends the usable life of airport surfaces, deferring the need for more costly reconstruction. The crack repair project must be completed before seal coating can begin.' },
-                    { label: 'Who Pays', value: 'CDOT Division of Aeronautics • County coordination' },
+                    { label: 'Purpose', value: 'Prolong the lifespan of existing runway, taxiway, and apron asphalt through crack sealing and seal coating.' },
+                    { label: 'Project Description', value: 'Mastic was applied to major cracks along Taxiway A3, A4, and the Runway 21 teacup, which were severe and had to be addressed before seal coating could be effective. The airport was then seal coated. This preventative maintenance treatment protects pavement from weather damage and extends the usable life of airport surfaces, deferring the need for more costly reconstruction.' },
+                    { label: 'Who Pays', value: 'CDOT Division of Aeronautics • Las Animas County match' },
                     { label: 'Timeline', value: 'Complete' }
                 ],
-                cost: { label: 'Total Investment', amount: 'CDOT Funded' }
+                cost: { label: 'Total Investment', amount: 'CDOT Funded with County Match' }
             },
             'taxilane': {
                 title: 'Private Hangar Taxilane',
-                year: '2026 • In Progress',
+                year: '2026-2027 • In Progress',
                 type: 'county',
                 image: 'images/private_hangar_taxiway.png',
                 imageCaption: 'Private Hangar Taxiway shown in Pink',
                 details: [
                     { label: 'Purpose', value: 'Build taxilane to provide access to 6 potential ground lease plots for private hangar development. Creates new County revenue stream.' },
-                    { label: 'Project Description', value: 'This project unlocks significant private investment potential by enabling aircraft owners to build their own hangars on County-leased land. The scope includes a CatEX environmental study and design of the entire 6-hangar planned location (approximately 180,000 sq ft). County in-kind work includes clear and grubbing of approximately 18,500 sq ft. Construction includes aggregate base course (~632 tons) and asphalt hard surface (~602 tons).' }
+                    { label: 'Project Description', value: 'This project unlocks significant private investment potential by enabling aircraft owners to build their own hangars on County-leased land. The full build-out includes a CatEX environmental study and design of the entire 6-hangar planned location (approximately 180,000 sq ft), clear and grubbing, aggregate base course, and asphalt hard surface.' },
+                    { label: 'Current Phase (2026)', value: 'The project has been partially funded. This first phase provides access to the first two hangar lots.' },
+                    { label: 'Timeline', value: '2026: Partial build-out (first two hangar lots) • 2027: Proposed County completion of remaining taxilane' }
                 ],
                 fundingTable: {
-                    title: 'Project Cost Breakdown',
-                    headers: ['Cost Item', 'Estimated Cost', 'Funding Source'],
+                    title: 'Funding to Date',
+                    headers: ['Item', 'Amount', 'Source / Status'],
                     rows: [
-                        ['CatEX Environmental Study', '$10,000', 'EIAF Grant'],
-                        ['Design Survey & Geotechnical', '$21,000', 'EIAF Grant'],
-                        ['Design Plans (Bolton & Menk)', '$44,000', 'EIAF Grant'],
-                        ['Clear and Grubbing (~18,500 sf)', '$35,000', 'Las Animas County (In-Kind)'],
-                        ['Aggregate Base Course (~632 tons)', '$63,194', 'County Cash / EIAF Grant'],
-                        ['Asphalt Hard Surface (~602 tons)', '$150,463', 'County Cash / EIAF Grant'],
-                        ['Contingency (20%)', '$42,731', 'EIAF Grant'],
-                        ['<strong>Total Project Cost</strong>', '<strong>$366,388</strong>', '']
+                        ['Asphalt', '$50,000', 'Las Animas County • Contracted'],
+                        ['Base Work (In-Kind)', '$35,000', 'Las Animas County'],
+                        ['CatEX Environmental Study', '~$16,000', 'Las Animas County • Paid'],
+                        ['<strong>Total Funded to Date</strong>', '<strong>~$101,000</strong>', '']
                     ]
                 },
-                note: 'Project has the potential to generate an estimated $10,800 per year in ground lease revenue to the county in addition to the local economic impact from taxilane and hangar construction.<br><br><strong>Funding Summary:</strong> EIAF Grant $185,000 + County Cash Match $150,000 + County In-Kind $35,000 = <strong>$370,000 Total Available</strong>',
+                note: 'Completing the remaining taxilane in 2027 will open the rest of the 6 planned ground lease plots. Full build-out has the potential to generate an estimated $10,800 per year in ground lease revenue to the county in addition to the local economic impact from taxilane and hangar construction.',
                 tasks: {
-                    title: 'Project Tasks',
+                    title: 'Pre-Project Requirements',
                     items: [
                         { task: 'Create Hangar Construction Standards', who: 'PJC Draft, BME Reviews, County Admin Approves', when: 'NLT 5 Feb', remarks: '✓ Complete' },
                         { task: 'Obtain taxilane design cost estimate', who: 'BME', when: 'Feb 2026', remarks: '✓ Complete' },
                         { task: 'Submit for Energy Impact Grant', who: 'County Administrator', when: 'Feb 6, 2026', remarks: '✓ Complete' },
-                        { task: 'Create and Approve "Perry Stokes Hangar Developers Checklist"', who: 'County Administrator', when: 'February 15', remarks: 'In Progress' },
-                        { task: 'Schedule CATEX', who: 'TBD', when: 'TBD', remarks: '' },
-                        { task: 'Determine Hangar Application Fee', who: 'County Administrator', when: 'NLT 20 Feb', remarks: '' }
+                        { task: 'Create and Approve "Perry Stokes Hangar Developers Checklist"', who: 'County Administrator', when: 'February 15', remarks: '✓ Complete' },
+                        { task: 'Complete CATEX', who: 'Las Animas County', when: '2026', remarks: '✓ Complete' },
+                        { task: 'Determine Hangar Application Fee', who: 'County Administrator', when: 'NLT 20 Feb', remarks: '✓ Complete' }
                     ]
                 },
-                cost: { label: 'Total Estimated Cost', amount: '$366,388' }
+                cost: { label: 'Full Build-Out Estimate', amount: '$366,388' }
             },
             'rental': {
                 title: 'Rental Car Service',
                 year: '2026 • Complete',
                 type: 'pjc',
                 details: [
-                    { label: 'Purpose', value: 'Partner with nationally recognized rental car company to address major limitation of ground transportation availability.' },
-                    { label: 'Project Description', value: 'The current courtesy car is insufficient to meet peak demand during spring and fall, resulting in lost flight reservations. PJC will partner with a nationally recognized rental car company to provide flight crews with reliable rental cars during all seasons. This service addition removes a significant barrier to airport utilization and supports increased business aviation traffic.' },
-                    { label: 'Who Pays', value: 'Pinnacle Jet Centers (Operational Partnership)' },
-                    { label: 'Timeline', value: 'Complete • Service launched 2026' }
+                    { label: 'Purpose', value: 'Address the major limitation of ground transportation availability for flight crews and visitors.' },
+                    { label: 'Project Description', value: 'The airport now operates a 4-car rental fleet of mid-size and large SUVs, giving flight crews reliable rental cars in all seasons. The previous courtesy car could not meet peak demand during spring and fall, resulting in lost flight reservations.' },
+                    { label: 'Results', value: '100 rental nights in 2026' },
+                    { label: 'Who Pays', value: 'Pinnacle Jet Centers' },
+                    { label: 'Timeline', value: 'Complete' }
                 ],
-                cost: { label: 'Total Investment', amount: '$0 (Partnership)' }
+                cost: { label: 'Total Fleet Cost', amount: '$36,900' }
             },
-            'terminal': {
-                title: 'Terminal Renovation',
-                year: '2026-2027',
+            'terminal-cosmetic': {
+                title: 'Terminal Cosmetic Renovation',
+                year: '2026',
+                type: 'pjc',
+                details: [
+                    { label: 'Purpose', value: 'Refresh the historic terminal\'s interior and exterior while preserving its historic character.' },
+                    { label: 'Project Description', value: 'Refinishing historic wood wainscot, repairing trim throughout, painting interior spaces, renovating the pilot lounge, building an aircrew overnight room, and exterior improvements including pergola replacement and fixture repairs.' },
+                    { label: 'Who Pays', value: 'Pinnacle Jet Centers (Private Investment)' }
+                ],
+                cost: { label: 'Total Investment', amount: 'PJC Funded' }
+            },
+            'terminal-mep': {
+                title: 'Terminal MEP & Windows',
+                year: '2027 • Seeking Grant Funding',
                 type: 'grant',
                 details: [
-                    { label: 'Purpose', value: 'Modernize airport terminal while preserving historic character. Includes cosmetic improvements, mechanical/electrical upgrades, and energy efficiency improvements.' },
-                    { label: 'Project Description', value: 'Phase 1 (PJC-funded) includes refinishing historic wood wainscot, repairing trim throughout, painting interior spaces, renovating the pilot lounge, building an aircrew overnight room, and exterior improvements including pergola replacement and fixture repairs. Phase 2 (grant-dependent) includes installation of a 6-zone cold-climate mini-split system, replacing the 1950s boiler with a high-efficiency unit, modernizing electrical panels, installing a commercial water heater, and replacing 33 single-pane windows with energy-efficient period-appropriate units.' },
-                    { label: 'Who Pays', value: 'If ATP Grant Awarded: PJC $38,244 + Federal $194,642 | If Not Awarded: PJC $48,000' },
-                    { label: 'Timeline', value: 'Cosmetics: Summer 2026 • MEP (if grant): May-Sept 2027' }
+                    { label: 'Purpose', value: 'Upgrade the historic terminal\'s mechanical, electrical, and plumbing (MEP) systems and windows.' },
+                    { label: 'Project Description', value: 'We will be seeking grant funding to cover historic terminal MEP upgrades, including:<br>• Climate control upgrades<br>• Electrical panel upgrades to remove safety and power availability hazards<br>• New period-appropriate, energy-efficient windows' },
+                    { label: 'Who Pays', value: 'Grant Funding (being sought)' }
                 ],
-                cost: { label: 'Total Project Cost', amount: '$204,886 - $232,886' }
+                cost: { label: 'Estimated Cost', amount: '$560,000' }
             },
             'minstandards': {
                 title: 'Airport Minimum Standards',
@@ -3190,29 +3186,33 @@
                 details: [
                     { label: 'Purpose', value: '<strong>Safety:</strong> Deconflict rotary-wing (helicopter) and fixed-wing traffic. Current hot refuel operations on Taxiway A3 create disruption and wake turbulence hazards.<br><br><strong>Capacity:</strong> Double fuel throughput for large helicopter flights (4+ aircraft).' },
                     { label: 'Project Description', value: 'The only safe place to conduct hot refuels is currently on Taxiway A3. With high daily volume of fixed-wing training traffic, helicopters face challenges accessing the hot refuel point. Dedicated helipads allow complete deconfliction of rotary and fixed-wing traffic. The project includes two concrete helipads capable of accommodating a V-22 Osprey, with asphalt connectors and partial taxiway segment. Each helipad includes a skid-mounted hose reel and fuel truck parking spot. The helipads are "terped" for low-level landing providing deconfliction from fixed-wing traffic.' },
-                    { label: 'Who Pays', value: '<strong>Primary:</strong> Defense Community Infrastructure Grant (DCIP)<br><strong>Backup:</strong> FAA/CDOT Discretionary Funds<br><strong>Local Match:</strong> Up to 5%' },
+                    { label: 'Funding Options', value: '<strong>Option 1: Defense Community Infrastructure Program (DCIP) re-application in 2027.</strong> Only pursued if the 2026 outbrief indicates the application was competitive. No local match.<br><br><strong>Option 2: Congressional project funding</strong>: Community Project Funding (CPF) through Congressman Jeff Hurd or Congressionally Directed Spending (CDS) through Senator John Hickenlooper. Would only partially fund Schedule A and requires a 10% local match. PJC has agreed to contribute up to $50,000 if this funding is approved.<br><br><strong>Option 3: CDOT and FAA allocations and overmatch.</strong> 5% local match on these funds.' },
+                    { label: 'Suggested Course of Action', value: 'To complete the project on the current timeline, combine CPF/CDS funding with CDOT and FAA funds to complete Schedules A and B. If CPF/CDS funding is not awarded, reapply for all grant sources in 2027 and delay the project one year.' },
                     { label: 'Timeline', value: 'Schedule A (North Pad): 2027-2028<br>Schedule B (South Pad): 2028-2029<br>Schedule C (Optional Taxiway): 2029-2030' }
                 ],
                 cost: { label: 'Total Project Cost (DCIP)', amount: 'Up to $2,466,845' }
             },
             'private-hangar-1': {
                 title: 'Private Hangar Construction 1',
-                year: '2026',
+                year: '2026 • Construction begins October 1, 2026',
                 type: 'private',
                 details: [
-                    { label: 'Project Description', value: 'Details coming soon.' }
+                    { label: 'Project Description', value: 'The first privately owned hangar lot on the new taxilane has completed all pre-construction requirements. Construction begins October 1, 2026.' },
+                    { label: 'Who Pays', value: 'Private hangar owner' },
+                    { label: 'Revenue to County', value: '$5,000 in application fees • ~$500 per year in ground lease revenue' }
                 ],
-                cost: { label: 'Total Investment', amount: 'TBD' }
+                cost: { label: 'Application Fees Generated', amount: '$5,000' }
             },
             'jet-truck-2': {
                 title: 'Purchase of Second Jet Fuel Truck',
-                year: '2026',
+                year: '2026 • Complete',
                 type: 'pjc',
                 details: [
                     { label: 'Purpose', value: 'Add a second Jet-A fuel truck to increase fueling capacity for military and business aviation customers.' },
-                    { label: 'Who Pays', value: 'Pinnacle Jet Centers' }
+                    { label: 'Who Pays', value: 'Pinnacle Jet Centers' },
+                    { label: 'Timeline', value: 'Complete' }
                 ],
-                cost: { label: 'Total Investment', amount: 'TBD' }
+                cost: { label: 'Total Investment', amount: '$105,000' }
             },
             'avgas': {
                 title: 'AVGAS Fuel Truck',
@@ -3248,11 +3248,11 @@
             'parking': {
                 title: 'Parking Lot Repairs',
                 year: '2028',
-                type: 'pjc',
+                type: 'joint',
                 details: [
                     { label: 'Purpose', value: 'Phased repairs to airport parking lot to support increased traffic from hangar development and events.' },
                     { label: 'Project Description', value: 'The airport parking lot has deteriorated significantly and requires phased repairs. Repairs will be prioritized based on budget availability and coordinated with other pavement projects to maximize cost efficiency. Improved parking supports the projected increase in passenger enplanements from 624 (2025) to 936 (2030) and accommodates larger events like the 90th Anniversary celebration.' },
-                    { label: 'Who Pays', value: 'Pinnacle Jet Centers' }
+                    { label: 'Who Pays', value: 'Joint Venture: Las Animas County & Pinnacle Jet Centers' }
                 ],
                 cost: { label: 'Total Investment', amount: 'TBD' }
             }
