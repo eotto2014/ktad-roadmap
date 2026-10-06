@@ -1440,6 +1440,10 @@
             <div class="gantt-scroll" id="ganttScroll">
                 <div class="gantt-chart" id="ganttChart"></div>
             </div>
+
+            <div class="report-actions">
+                <button class="print-report-btn" onclick="printSection('timeline')">🖨️ Print this Report</button>
+            </div>
         </div>
         
         <!-- SECTION 1: Vision for the Future -->
@@ -2897,7 +2901,37 @@
             
             const printWindow = window.open('', '_blank');
             const sectionTitle = section.querySelector('h2')?.textContent || 'Report';
-            
+
+            // The timeline is a CSS grid, so it needs its own styles (and landscape paper) when printed
+            const timelineCss = sectionId !== 'timeline' ? '' : `
+                @page { size: landscape; margin: 0.4in; }
+                body { max-width: none; }
+                .gantt-scroll-hint, .no-print, .timeline-header p { display: none !important; }
+                .timeline-header { text-align: center; }
+                .legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 14px 0; font-size: 9pt; }
+                .legend-item { display: flex; align-items: center; gap: 6px; }
+                .legend-color { width: 18px; height: 11px; border-radius: 3px; }
+                .legend-color.pjc, .gantt-bar.pjc { background: #2980b9; }
+                .legend-color.county, .gantt-bar.county { background: #1e8449; }
+                .legend-color.joint, .gantt-bar.joint { background: #7d3c98; }
+                .legend-color.grant, .gantt-bar.grant { background: #d35400; }
+                .legend-color.private, .gantt-bar.private { background: #6d4c41; }
+                .gantt-scroll { overflow: visible; }
+                .gantt-chart { width: 100%; }
+                .gantt-header, .gantt-row { display: grid; grid-template-columns: 110px repeat(var(--gantt-years, 6), 1fr); }
+                .gantt-header { border-bottom: 2px solid #1a5276; }
+                .gantt-header-label, .gantt-year { padding: 5px 4px; font-weight: 700; color: #1a5276; font-size: 9.5pt; text-align: center; }
+                .gantt-header-label { text-align: left; border-right: 2px solid #1a5276; }
+                .gantt-row { border-bottom: 1px solid #eee; break-inside: avoid; }
+                .gantt-category { padding: 5px 4px; font-weight: 600; font-size: 8pt; background: #f4f6f7; border-right: 2px solid #1a5276; display: flex; align-items: center; }
+                .gantt-cell { padding: 4px 3px; border-left: 1px solid #eee; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
+                .gantt-bar { display: flex; align-items: center; padding: 3px 5px; border-radius: 4px; color: white; font-size: 7pt; line-height: 1.2; }
+                .gantt-section-header { background: #34495e; color: white; padding: 4px 10px; font-weight: 600; font-size: 8.5pt; margin-top: 4px; }
+                .gantt-check, .legend-check { display: inline-flex; align-items: center; justify-content: center; width: 13px; height: 13px; min-width: 13px; margin-right: 4px; border-radius: 50%; background: white; color: #1e8449; font-size: 8pt; font-weight: 700; }
+                .legend-check { border: 1px solid #1e8449; }
+                * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            `;
+
             printWindow.document.write(`
                 <!DOCTYPE html>
                 <html>
@@ -2925,6 +2959,7 @@
                         @media print {
                             body { padding: 0; }
                         }
+                        ${timelineCss}
                     </style>
                 </head>
                 <body>
